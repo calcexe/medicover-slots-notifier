@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "deploy:functions": "firebase deploy --only functions:findAppointments",
+    "deploy:hosting": "cd frontend && npm run build && firebase deploy --only hosting",
+    "start:emulators": "firebase emulators:start --only functions",
+    "ts:watch": "tsc --watch",
+    "dev:functions": "concurrently --kill-others \"yarn start:emulators --only functions\" \"cd functions && yarn build:watch\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.4.0"
+  }
+}
