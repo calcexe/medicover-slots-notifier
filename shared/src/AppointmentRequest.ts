@@ -3,7 +3,9 @@ import { Regions } from "./Regions";
 import { Services } from "./Services";
 
 export interface AppointmentRequest {
-  regions: Regions[];
-  services: Services[];
-  doctors: Doctor[];
+  region: Regions;
+  service: Services;
+  doctor?: Doctor;
+  startDate?: Date;
+  lastNotificationDate?: Date;
 }

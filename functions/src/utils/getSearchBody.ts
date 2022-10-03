@@ -1,13 +1,15 @@
 import { AppointmentRequest } from "../shared/AppointmentRequest";
 
 export const getSearchBody = (body: AppointmentRequest) => ({
-  regionIds: body.regions,
+  regionIds: [body.region],
   serviceTypeId: 2,
-  serviceIds: body.services,
+  serviceIds: [body.service],
   clinicIds: [],
   doctorLanguagesIds: [],
-  doctorIds: body.doctors,
-  searchSince: new Date().toISOString(),
+  doctorIds: body.doctor ? [body.doctor] : [],
+  searchSince: body.startDate
+    ? body.startDate.toISOString()
+    : new Date().toISOString(),
   startTime: "0:00",
   endTime: "23:59",
   selectedSpecialties: [],
