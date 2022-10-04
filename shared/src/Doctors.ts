@@ -1,4 +1,4 @@
-import { Services } from "./Services";
+import { Service } from "./Services";
 
 export enum Doctor {
   SZYMANSKA_MALGORZATA = 325278,
@@ -8,7 +8,7 @@ export enum Doctor {
 
 export interface DoctorData {
   name: string;
-  service: number;
+  service: Service;
   doctor: Doctor;
 }
 
@@ -22,16 +22,16 @@ export const Doctors: DoctorEntry = {
   KUMOR_KLAUDIUSZ: {
     name: "Kumor Klaudiusz",
     doctor: Doctor.KUMOR_KLAUDIUSZ,
-    service: Services.NEUROLOG_DOROSLI,
+    service: Service.NEUROLOG_DOROSLI,
   },
   SZYMANSKA_MALGORZATA: {
     name: "Szymańska Małgorzata",
     doctor: Doctor.SZYMANSKA_MALGORZATA,
-    service: Services.NEUROLOG_DOROSLI,
+    service: Service.NEUROLOG_DOROSLI,
   },
   KOZUB_DOROTA_ILONA: {
     name: "Kozub - Doros Ilona",
     doctor: Doctor.KOZUB_DOROTA_ILONA,
-    service: Services.NEUROLOG_DOROSLI,
+    service: Service.NEUROLOG_DOROSLI,
   },
 };

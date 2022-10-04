@@ -9,8 +9,29 @@ import { AppointmentSlots } from "./types/AppointmentSlots";
 import { UserData } from "./types/UserData";
 import Config from "./Config";
 import { AppointmentRequestConverter } from "./utils/AppointmentRequestConverter";
+import { searchDoctors } from "./api/searchDoctors";
+import { Regions } from "./shared/Regions";
+import { Service } from "./shared/Services";
 
 const app = admin.initializeApp();
+
+export const abc = functions.region("europe-west1").https.onCall(async () => {
+  const browser = await getBrowser();
+  const page = await browser.newPage();
+
+  await page.goto(Config.puppeteer.firstPage);
+  await page.waitForNetworkIdle({ idleTime: 500 });
+
+  await signIn(page, Config.medicover.username, Config.medicover.password);
+  const doctors = await searchDoctors(
+    page,
+    Regions.GLIWICE,
+    Service.NEUROLOG_DOROSLI
+  );
+
+  return doctors;
+  // searchDoctors
+});
 
 export const findAppointments = functions
   .runWith({ memory: "2GB", timeoutSeconds: 60 })

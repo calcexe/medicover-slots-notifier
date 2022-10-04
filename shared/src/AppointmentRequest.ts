@@ -1,10 +1,10 @@
 import { Doctor } from "./Doctors";
 import { Regions } from "./Regions";
-import { Services } from "./Services";
+import { Service } from "./Services";
 
 export interface AppointmentRequest {
   region: Regions;
-  service: Services;
+  service: Service;
   doctor?: Doctor;
   startDate?: Date;
   lastNotificationDate?: Date;
