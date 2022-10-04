@@ -70,8 +70,5 @@ node_modules/
 functions/src/shared
 frontend/src/shared
 
-# until wip remove frontend from git
-frontend
-
 # other
 .DS_Store

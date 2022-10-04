@@ -1,0 +1,39 @@
+name: Build and Deploy
+on:
+  workflow_dispatch:
+jobs:
+  build-deploy-hosting:
+    name: Hosting - Build & Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd frontend && npm install && cd .. && npm ci && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_MEDICOVER_SLOTS_NOTIFIER }}"
+          channelId: live
+          projectId: medicover-slots-notifier
+  build-deploy-functions:
+    name: Functions - Build & Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        run: cd functions && npm install
+      - name: Build
+        run: cd functions && npm run copy-shared && npm run build
+      - name: Deploy
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+        env:
+          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MEDICOVER_SLOTS_NOTIFIER }}
+          CONFIG_VALUES: >
+            medicover.password=${{ secrets.MEDICOVER_PASSWORD }}
+            medicover.username=${{ secrets.MEDICOVER_USERNAME }}
+            mail.password=${{ secrets.MAIL_PASSWORD }}
+            mail.host=${{ secrets.MAIL_HOST }}
+            mail.user=${{ secrets.MAIL_USER }}
+            mail.port=${{ secrets.MAIL_PORT }}

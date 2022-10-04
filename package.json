@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "build": "cd frontend && npm run build",
-    "deploy:functions": "firebase deploy --only functions:findAppointments",
+    "build": "cd frontend && npm run build && npm run export",
+    "deploy:functions": "firebase deploy --only functions",
     "deploy:hosting": "cd frontend && npm run build && firebase deploy --only hosting",
     "start:emulators": "concurrently --kill-others \"firebase emulators:start --only functions\" \"cd functions && npm run build:watch\"",
     "ts:watch": "cd functions && tsc --watch",
